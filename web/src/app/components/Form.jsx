@@ -2,6 +2,7 @@
 import { useState } from "react";
 import ServicesInput from "./ServicesInput";
 import AddressInput from "./AddressInput";
+import PhoneNumberInput from "./PhoneNumberInput";
 
 const Form = () => {
   const [formData, setFormData] = useState({
@@ -28,6 +29,10 @@ const Form = () => {
 
   const handleAddressChange = (newAddress) => {
     setFormData((prev) => ({ ...prev, address: newAddress }));
+  };
+
+  const handlePhoneNumbersChange = (phoneNumbers) => {
+    setFormData((prev) => ({ ...prev, phoneNumbers }));
   };
 
   const handleSubmit = async (e) => {
@@ -66,7 +71,7 @@ const Form = () => {
             <AddressInput onAddressChange={handleAddressChange} />
           </div>
 
-          <div>
+          {/* <div>
             <label className="block mb-1 font-bold text-gray-500">
               Phone Number<span className="text-red-500">*</span>
             </label>
@@ -79,8 +84,11 @@ const Form = () => {
               required
               className="w-full border-2 p-2 rounded outline-none focus:border-blue-500"
             />
-          </div>
-
+          </div> */}
+          <PhoneNumberInput
+            phoneNumbers={formData.phoneNumbers}
+            setPhoneNumbers={handlePhoneNumbersChange}
+          />
           <div>
             <label className="block mb-1 font-bold text-gray-500">
               Logo<span className="text-red-500">*</span>
