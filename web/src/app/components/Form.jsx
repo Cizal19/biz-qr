@@ -3,6 +3,7 @@ import { useState } from "react";
 import ServicesInput from "./ServicesInput";
 import AddressInput from "./AddressInput";
 import PhoneNumberInput from "./PhoneNumberInput";
+import SocialLinksInput from "./SocialLinksInput";
 
 const Form = () => {
   const [formData, setFormData] = useState({
@@ -15,6 +16,13 @@ const Form = () => {
     phoneNumbers: [],
     logo: "",
     services: [],
+    socialLinks: {
+      website: "",
+      instagram: "",
+      facebook: "",
+      x: "",
+      linkedin: "",
+    },
   });
 
   const handleChange = (e) => {
@@ -27,12 +35,22 @@ const Form = () => {
     setFormData((prev) => ({ ...prev, services }));
   };
 
+  // Handler for updating address in formData
   const handleAddressChange = (newAddress) => {
     setFormData((prev) => ({ ...prev, address: newAddress }));
   };
 
+  // Handler for updating phone numbers in formData
   const handlePhoneNumbersChange = (phoneNumbers) => {
     setFormData((prev) => ({ ...prev, phoneNumbers }));
+  };
+
+  // Handler for updating social links in formData
+  const handleSocialLinksChange = (newSocialLinks) => {
+    setFormData((prev) => ({
+      ...prev,
+      socialLinks: newSocialLinks,
+    }));
   };
 
   const handleSubmit = async (e) => {
@@ -71,20 +89,6 @@ const Form = () => {
             <AddressInput onAddressChange={handleAddressChange} />
           </div>
 
-          {/* <div>
-            <label className="block mb-1 font-bold text-gray-500">
-              Phone Number<span className="text-red-500">*</span>
-            </label>
-            <input
-              type="tel"
-              name="phoneNumber"
-              placeholder="123-456-789"
-              value={formData.phoneNumber}
-              onChange={handleChange}
-              required
-              className="w-full border-2 p-2 rounded outline-none focus:border-blue-500"
-            />
-          </div> */}
           <PhoneNumberInput
             phoneNumbers={formData.phoneNumbers}
             setPhoneNumbers={handlePhoneNumbersChange}
@@ -114,7 +118,15 @@ const Form = () => {
               required
             />
           </div>
-
+          <div>
+            <label className="block mb-1 font-bold text-gray-500">
+              Social Links<span className="text-red-500">*</span>
+            </label>
+            <SocialLinksInput
+              socialLinks={formData.socialLinks}
+              setSocialLinks={handleSocialLinksChange}
+            />
+          </div>
           <button
             type="submit"
             className="w-full p-3 bg-yellow-400 text-white rounded shadow hover:bg-yellow-300"
