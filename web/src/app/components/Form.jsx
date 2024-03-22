@@ -1,11 +1,16 @@
 "use client";
 import { useState } from "react";
 import ServicesInput from "./ServicesInput";
+import AddressInput from "./AddressInput";
 
 const Form = () => {
   const [formData, setFormData] = useState({
     name: "",
-    address: "",
+    address: {
+      street: "",
+      state: "",
+      country: "",
+    },
     phoneNumber: "",
     logo: "",
     services: [],
@@ -19,6 +24,10 @@ const Form = () => {
   // Update services in the formData
   const handleServicesChange = (services) => {
     setFormData((prev) => ({ ...prev, services }));
+  };
+
+  const handleAddressChange = (newAddress) => {
+    setFormData((prev) => ({ ...prev, address: newAddress }));
   };
 
   const handleSubmit = async (e) => {
@@ -53,15 +62,7 @@ const Form = () => {
             <label className="block mb-1 font-bold text-gray-500">
               Address<span className="text-red-500">*</span>
             </label>
-            <input
-              type="text"
-              name="address"
-              placeholder="Business Address"
-              value={formData.address}
-              onChange={handleChange}
-              required
-              className="w-full border-2 p-2 rounded outline-none focus:border-blue-500"
-            />
+            <AddressInput setAddress={handleAddressChange} />
           </div>
 
           <div>
@@ -71,7 +72,7 @@ const Form = () => {
             <input
               type="tel"
               name="phoneNumber"
-              placeholder="Business Phone"
+              placeholder="123-456-789"
               value={formData.phoneNumber}
               onChange={handleChange}
               required
