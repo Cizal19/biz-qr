@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from "react";
 
-const AddressInput = ({ setAddress }) => {
+const AddressInput = ({ onAddressChange }) => {
   const [localAddress, setLocalAddress] = useState({
     street: "",
     state: "",
     country: "",
   });
 
-  // Update the parent state whenever the local address state changes
-  useEffect(() => {
-    setAddress(localAddress);
-  }, [localAddress, setAddress]);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setLocalAddress((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleBlur = () => {
+    onAddressChange(localAddress);
   };
 
   return (
@@ -29,6 +28,7 @@ const AddressInput = ({ setAddress }) => {
           placeholder="Street"
           value={localAddress.street}
           onChange={handleChange}
+          onBlur={handleBlur}
           required
           className="flex-grow border-2 p-2 rounded outline-none focus:border-blue-500"
         />
@@ -43,6 +43,7 @@ const AddressInput = ({ setAddress }) => {
           placeholder="State"
           value={localAddress.state}
           onChange={handleChange}
+          onBlur={handleBlur}
           required
           className="flex-grow border-2 p-2 rounded outline-none focus:border-blue-500"
         />
@@ -57,6 +58,7 @@ const AddressInput = ({ setAddress }) => {
           placeholder="Country"
           value={localAddress.country}
           onChange={handleChange}
+          onBlur={handleBlur}
           required
           className="flex-grow border-2 p-2 rounded outline-none focus:border-blue-500"
         />

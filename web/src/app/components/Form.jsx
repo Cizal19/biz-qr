@@ -11,7 +11,7 @@ const Form = () => {
       state: "",
       country: "",
     },
-    phoneNumber: "",
+    phoneNumbers: [],
     logo: "",
     services: [],
   });
@@ -55,6 +55,7 @@ const Form = () => {
               value={formData.name}
               onChange={handleChange}
               className="w-full border-2 p-2 rounded outline-none focus:border-blue-500"
+              required
             />
           </div>
 
@@ -62,7 +63,7 @@ const Form = () => {
             <label className="block mb-1 font-bold text-gray-500">
               Address<span className="text-red-500">*</span>
             </label>
-            <AddressInput setAddress={handleAddressChange} />
+            <AddressInput onAddressChange={handleAddressChange} />
           </div>
 
           <div>
