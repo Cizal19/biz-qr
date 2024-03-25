@@ -61,78 +61,93 @@ const Form = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
+      <div className="bg-white p-8 rounded shadow-lg w-full max-w-4xl">
         <h2 className="text-2xl font-bold mb-10 text-gray-800">
           Business Information
         </h2>
+        <form
+          onSubmit={handleSubmit}
+          className="sm:grid sm:grid-cols-2 sm:gap-8 space-y-4 sm:space-y-0 "
+        >
+          <div>
+            <div className="space-y-4">
+              <div>
+                <label className="block mb-1 font-bold text-gray-500">
+                  Name<span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Business Name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  className="w-full border-2 p-2 rounded outline-none focus:border-blue-500"
+                  required
+                />
+              </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block mb-1 font-bold text-gray-500">
-              Name<span className="text-red-500">*</span>
-            </label>
-            <input
-              type="text"
-              name="name"
-              placeholder="Business Name"
-              value={formData.name}
-              onChange={handleChange}
-              className="w-full border-2 p-2 rounded outline-none focus:border-blue-500"
-              required
-            />
+              <div>
+                <label className="block mb-1 font-bold text-gray-500">
+                  Address<span className="text-red-500">*</span>
+                </label>
+              </div>
+              <AddressInput onAddressChange={handleAddressChange} />
+
+              <PhoneNumberInput
+                phoneNumbers={formData.phoneNumbers}
+                setPhoneNumbers={handlePhoneNumbersChange}
+              />
+
+              <div>
+                <label className="block mb-1 font-bold text-gray-500">
+                  Services<span className="text-red-500">*</span>
+                </label>
+                <ServicesInput
+                  services={formData.services}
+                  setServices={handleServicesChange}
+                  required
+                />
+              </div>
+            </div>
           </div>
 
           <div>
-            <label className="block mb-1 font-bold text-gray-500">
-              Address<span className="text-red-500">*</span>
-            </label>
-            <AddressInput onAddressChange={handleAddressChange} />
+            <div className="space-y-4">
+              <div>
+                <label className="block mb-1 font-bold text-gray-500">
+                  Logo<span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="logo"
+                  placeholder="Logo URL"
+                  value={formData.logo}
+                  onChange={handleChange}
+                  required
+                  className="w-full border-2 p-2 rounded outline-none focus:border-blue-500"
+                />
+              </div>
+
+              <div>
+                <label className="block mb-1 font-bold text-gray-500">
+                  Social Links<span className="text-red-500">*</span>
+                </label>
+                <SocialLinksInput
+                  socialLinks={formData.socialLinks}
+                  setSocialLinks={handleSocialLinksChange}
+                />
+              </div>
+            </div>
           </div>
 
-          <PhoneNumberInput
-            phoneNumbers={formData.phoneNumbers}
-            setPhoneNumbers={handlePhoneNumbersChange}
-          />
-          <div>
-            <label className="block mb-1 font-bold text-gray-500">
-              Logo<span className="text-red-500">*</span>
-            </label>
-            <input
-              type="text"
-              name="logo"
-              placeholder="Logo URL"
-              value={formData.logo}
-              onChange={handleChange}
-              required
-              className="w-full border-2 p-2 rounded outline-none focus:border-blue-500"
-            />
+          <div className="col-span-2">
+            <button
+              type="submit"
+              className="w-full p-3 bg-yellow-400 text-white rounded shadow hover:bg-yellow-300"
+            >
+              Submit
+            </button>
           </div>
-
-          <div>
-            <label className="block mb-1 font-bold text-gray-500">
-              Services<span className="text-red-500">*</span>
-            </label>
-            <ServicesInput
-              services={formData.services}
-              setServices={handleServicesChange}
-              required
-            />
-          </div>
-          <div>
-            <label className="block mb-1 font-bold text-gray-500">
-              Social Links<span className="text-red-500">*</span>
-            </label>
-            <SocialLinksInput
-              socialLinks={formData.socialLinks}
-              setSocialLinks={handleSocialLinksChange}
-            />
-          </div>
-          <button
-            type="submit"
-            className="w-full p-3 bg-yellow-400 text-white rounded shadow hover:bg-yellow-300"
-          >
-            Submit
-          </button>
         </form>
       </div>
     </div>
