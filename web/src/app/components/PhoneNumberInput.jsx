@@ -33,6 +33,14 @@ const PhoneNumberInput = ({ phoneNumbers, setPhoneNumbers }) => {
     }
   };
 
+  const handleKeyDown = (e) => {
+    // Check if the pressed key is 'Enter'
+    if (e.key === "Enter") {
+      e.preventDefault(); // Prevent form submission
+      handleAddPhoneNumber(); // Add the phone number on Enter
+    }
+  };
+
   const handleRemovePhoneNumber = (index) => {
     const updatedPhoneNumbers = [...phoneNumbers];
     updatedPhoneNumbers.splice(index, 1);
@@ -70,6 +78,7 @@ const PhoneNumberInput = ({ phoneNumbers, setPhoneNumbers }) => {
           placeholder="123-456-789"
           value={newPhoneNumber}
           onChange={handleInputChange}
+          onKeyDown={handleKeyDown}
           className="flex-grow border-2 p-2 rounded outline-none focus:border-blue-500"
           required
         />

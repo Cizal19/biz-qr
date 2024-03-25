@@ -88,6 +88,21 @@ const Form = () => {
 
               <div>
                 <label className="block mb-1 font-bold text-gray-500">
+                  Logo<span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="logo"
+                  placeholder="Logo URL"
+                  value={formData.logo}
+                  onChange={handleChange}
+                  required
+                  className="w-full border-2 p-2 rounded outline-none focus:border-blue-500"
+                />
+              </div>
+
+              <div>
+                <label className="block mb-1 font-bold text-gray-500">
                   Address<span className="text-red-500">*</span>
                 </label>
               </div>
@@ -115,22 +130,7 @@ const Form = () => {
             <div className="space-y-4">
               <div>
                 <label className="block mb-1 font-bold text-gray-500">
-                  Logo<span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  name="logo"
-                  placeholder="Logo URL"
-                  value={formData.logo}
-                  onChange={handleChange}
-                  required
-                  className="w-full border-2 p-2 rounded outline-none focus:border-blue-500"
-                />
-              </div>
-
-              <div>
-                <label className="block mb-1 font-bold text-gray-500">
-                  Social Links<span className="text-red-500">*</span>
+                  Social Links
                 </label>
                 <SocialLinksInput
                   socialLinks={formData.socialLinks}
