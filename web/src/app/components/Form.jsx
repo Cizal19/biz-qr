@@ -14,7 +14,7 @@ const Form = () => {
       country: "",
     },
     phoneNumbers: [],
-    logo: "",
+    logoUrl: "",
     services: [],
     socialLinks: {
       website: "",
@@ -24,6 +24,8 @@ const Form = () => {
       linkedin: "",
     },
   });
+
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -53,10 +55,60 @@ const Form = () => {
     }));
   };
 
+  // Handler for changing selectedFile
+  const handleLogoChange = async (e) => {
+    setSelectedFile(e.target.files[0]);
+  };
+
+  // Function for uploading image to cloudinary and updating logoUrl in formData
+  const handleLogoUpload = async (file) => {
+    const logoData = new FormData();
+    logoData.append("file", file);
+    logoData.append("upload_preset", "nfeo8e9t");
+
+    try {
+      const response = await fetch(
+        `https://api.cloudinary.com/v1_1/dzhvpsn9w/image/upload`,
+        {
+          method: "POST",
+          body: logoData,
+        }
+      );
+      const data = await response.json();
+
+      // Once the image is uploaded, return the secure URL
+      if (response.ok) {
+        return data.secure_url;
+      } else {
+        throw new Error(data.error.message);
+      }
+    } catch (error) {
+      console.error("Error uploading the image:", error);
+      throw error;
+    }
+  };
+
+  // Handler for submitting Form
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitting form data:", formData);
-    // POST to API logic goes here
+    if (selectedFile) {
+      // Perform the upload
+      try {
+        const logoUrl = await handleLogoUpload(selectedFile);
+
+        // Update formData with the returned logo URL
+        const updatedFormData = {
+          ...formData,
+          logoUrl: logoUrl,
+        };
+        //update the state of FormData
+        setFormData(updatedFormData);
+        // POST to API logic goes here
+        console.log("Submitting form data:", updatedFormData);
+      } catch (uploadError) {
+        throw uploadError;
+      }
+    }
   };
 
   return (
@@ -91,11 +143,11 @@ const Form = () => {
                   Logo<span className="text-red-500">*</span>
                 </label>
                 <input
-                  type="text"
+                  type="file"
                   name="logo"
-                  placeholder="Logo URL"
-                  value={formData.logo}
-                  onChange={handleChange}
+                  placeholder="Logo"
+                  accept="image/png, image/jpg"
+                  onChange={handleLogoChange}
                   required
                   className="w-full border-2 p-2 rounded outline-none focus:border-blue-500"
                 />
