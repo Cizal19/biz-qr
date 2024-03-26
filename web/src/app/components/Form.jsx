@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ServicesInput from "./ServicesInput";
 import AddressInput from "./AddressInput";
 import PhoneNumberInput from "./PhoneNumberInput";
@@ -26,6 +26,7 @@ const Form = () => {
   });
 
   const [selectedFile, setSelectedFile] = useState(null);
+  const [imagePreviewUrl, setImagePreviewUrl] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -57,8 +58,32 @@ const Form = () => {
 
   // Handler for changing selectedFile
   const handleLogoChange = async (e) => {
-    setSelectedFile(e.target.files[0]);
+    // Check if the user selected a file
+    if (e.target.files.length > 0) {
+      const file = e.target.files[0];
+      setSelectedFile(file);
+
+      // Cleanup previous URL to avoid memory leaks
+      if (imagePreviewUrl) URL.revokeObjectURL(imagePreviewUrl);
+
+      // Create a new URL for the selected file and update state
+      const fileUrl = URL.createObjectURL(file);
+      setImagePreviewUrl(fileUrl);
+    } else {
+      // reset to initial state
+      setSelectedFile(null);
+      setImagePreviewUrl("");
+    }
   };
+
+  useEffect(() => {
+    // This return function is a cleanup function that React will run when the component unmounts
+    return () => {
+      if (imagePreviewUrl) {
+        URL.revokeObjectURL(imagePreviewUrl);
+      }
+    };
+  }, [imagePreviewUrl]);
 
   // Function for uploading image to cloudinary and updating logoUrl in formData
   const handleLogoUpload = async (file) => {
@@ -152,6 +177,15 @@ const Form = () => {
                   className="w-full border-2 p-2 rounded outline-none focus:border-blue-500"
                 />
               </div>
+              {imagePreviewUrl && (
+                <div>
+                  <img
+                    src={imagePreviewUrl}
+                    alt="Logo Preview"
+                    className="max-w-xs h-auto"
+                  />
+                </div>
+              )}
 
               <div>
                 <label className="block mb-1 font-bold text-gray-500">
