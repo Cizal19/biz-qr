@@ -136,10 +136,10 @@ const Form = () => {
         console.log("Submitting form data:", updatedFormData);
 
         // Make POST request to server
-        const response = await axios.post(
-          "http://localhost:4000/formData",
-          updatedFormData
-        );
+        // const response = await axios.post(
+        //   "http://localhost:4000/formData",
+        //   updatedFormData
+        // );
 
         console.log("Form data submitted successfully:", response.data);
       } catch (error) {
@@ -231,8 +231,7 @@ const Form = () => {
                   Social Links
                 </label>
                 <SocialLinksInput
-                  socialLinks={formData.socialLinks}
-                  setSocialLinks={handleSocialLinksChange}
+                  onSocialLinksChange={handleSocialLinksChange}
                 />
               </div>
             </div>
