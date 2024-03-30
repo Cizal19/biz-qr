@@ -3,6 +3,7 @@ import React, { useState } from "react";
 const PhoneNumberInput = ({ phoneNumbers, setPhoneNumbers }) => {
   const [newPhoneNumber, setNewPhoneNumber] = useState("");
   const [validationError, setValidationError] = useState("");
+  const [isRequired, setIsRequired] = useState(true);
 
   const handleAddPhoneNumber = () => {
     // Check if the new phone number is valid
@@ -15,6 +16,7 @@ const PhoneNumberInput = ({ phoneNumbers, setPhoneNumbers }) => {
     if (newPhoneNumber && !phoneNumbers.includes(newPhoneNumber)) {
       setPhoneNumbers([...phoneNumbers, newPhoneNumber]);
       setNewPhoneNumber("");
+      setIsRequired(false);
     }
   };
 
@@ -41,10 +43,20 @@ const PhoneNumberInput = ({ phoneNumbers, setPhoneNumbers }) => {
     }
   };
 
+  const handleBlur = () => {
+    // Add the phone number when input loses focus
+    handleAddPhoneNumber();
+  };
+
   const handleRemovePhoneNumber = (index) => {
     const updatedPhoneNumbers = [...phoneNumbers];
     updatedPhoneNumbers.splice(index, 1);
     setPhoneNumbers(updatedPhoneNumbers);
+
+    // Check if all phone numbers are removed
+    if (updatedPhoneNumbers.length === 0) {
+      setIsRequired(true); // Set isRequired to true if no phone numbers exist
+    }
   };
 
   return (
@@ -79,8 +91,9 @@ const PhoneNumberInput = ({ phoneNumbers, setPhoneNumbers }) => {
           value={newPhoneNumber}
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
+          onBlur={handleBlur}
           className="flex-grow border-2 p-2 rounded outline-none focus:border-blue-500"
-          required
+          required={isRequired}
         />
         <button
           type="button"
