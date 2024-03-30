@@ -1,12 +1,16 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv").config();
+const cors = require("cors");
 const formDataRoutes = require("./routes/formDataRoutes");
 
 const app = express();
 
 // Middleware
 app.use(express.json());
+
+// CORS configuration
+app.use(cors());
 
 // Connect to MongoDB
 mongoose
