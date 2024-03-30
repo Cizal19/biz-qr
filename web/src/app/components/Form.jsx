@@ -4,6 +4,7 @@ import ServicesInput from "./ServicesInput";
 import AddressInput from "./AddressInput";
 import PhoneNumberInput from "./PhoneNumberInput";
 import SocialLinksInput from "./SocialLinksInput";
+import axios from "axios";
 
 const Form = () => {
   const [formData, setFormData] = useState({
@@ -92,17 +93,19 @@ const Form = () => {
     logoData.append("upload_preset", "nfeo8e9t");
 
     try {
-      const response = await fetch(
+      const response = await axios.post(
         `https://api.cloudinary.com/v1_1/dzhvpsn9w/image/upload`,
+        logoData,
         {
-          method: "POST",
-          body: logoData,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         }
       );
-      const data = await response.json();
+      const data = response.data;
 
       // Once the image is uploaded, return the secure URL
-      if (response.ok) {
+      if (response.status === 200) {
         return data.secure_url;
       } else {
         throw new Error(data.error.message);
@@ -128,10 +131,19 @@ const Form = () => {
         };
         //update the state of FormData
         setFormData(updatedFormData);
+
         // POST to API logic goes here
         console.log("Submitting form data:", updatedFormData);
-      } catch (uploadError) {
-        throw uploadError;
+
+        // Make POST request to server
+        const response = await axios.post(
+          "http://localhost:4000/formData",
+          updatedFormData
+        );
+
+        console.log("Form data submitted successfully:", response.data);
+      } catch (error) {
+        console.error("Error submitting form data:", error);
       }
     }
   };
