@@ -4,6 +4,7 @@ import ServicesInput from "./ServicesInput";
 import AddressInput from "./AddressInput";
 import PhoneNumberInput from "./PhoneNumberInput";
 import SocialLinksInput from "./SocialLinksInput";
+import QRCodeModal from "./QRCodeModal";
 import axios from "axios";
 
 const Form = () => {
@@ -28,6 +29,8 @@ const Form = () => {
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [imagePreviewUrl, setImagePreviewUrl] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [qrCode, setQRCode] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -132,14 +135,20 @@ const Form = () => {
         //update the state of FormData
         setFormData(updatedFormData);
 
-        // POST to API logic goes here
+        // POST to API logic
         console.log("Submitting form data:", updatedFormData);
 
         // Make POST request to server
-        // const response = await axios.post(
-        //   "http://localhost:4000/formData",
-        //   updatedFormData
-        // );
+        const response = await axios.post(
+          "http://localhost:4000/formData",
+          updatedFormData
+        );
+
+        const qrCode = response.data;
+        setQRCode(qrCode);
+
+        // Open the modal
+        setShowModal(true);
 
         console.log("Form data submitted successfully:", response.data);
       } catch (error) {
@@ -245,6 +254,12 @@ const Form = () => {
               Submit
             </button>
           </div>
+
+          <QRCodeModal
+            show={showModal}
+            onClose={() => setShowModal(false)}
+            qrCode={qrCode}
+          />
         </form>
       </div>
     </div>
