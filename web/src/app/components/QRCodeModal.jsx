@@ -5,20 +5,56 @@ const QRCodeModal = ({ show, onClose, qrCode }) => {
     return null;
   }
 
+  const printQRCode = () => {
+    const printWindow = window.open("", "_blank");
+    printWindow.document.write(`
+      <html>
+        <head>
+          <title>Print QR Code</title>
+          <style>
+            body { margin: 0; }
+            .qr-code-container { display: flex; justify-content: center; align-items: center; height: 100vh; }
+            img { width: 200px; height: 200px; }
+          </style>
+        </head>
+        <body>
+          <div class="qr-code-container">
+            <img src="${qrCode}" alt="QR Code">
+          </div>
+        </body>
+      </html>
+    `);
+    printWindow.document.close();
+    printWindow.print();
+  };
+
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
       <div className="bg-white p-8 rounded shadow-lg max-w-md">
-        <div className="flex justify-between items-center mb-4">
+        <div className="flex justify-center items-center mb-4">
           <h2 className="text-lg font-bold text-gray-800">QR Code</h2>
+        </div>
+        <div className="p-4 flex justify-center">
+          <img
+            src={qrCode}
+            alt="QR Code"
+            style={{ height: "250px" }}
+            className="mx-auto"
+          />
+        </div>
+        <div className="flex justify-center mt-4">
+          <button
+            onClick={printQRCode}
+            className="bg-green-500 text-white px-4 py-2 rounded mr-2 hover:bg-green-600"
+          >
+            Print
+          </button>
           <button
             onClick={onClose}
-            className="text-red-500 hover:text-red-700 border-s-red-500"
+            className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
           >
-            x
+            Close
           </button>
-        </div>
-        <div className="p-4">
-          <img src={qrCode} alt="QR Code" className="h-500 w-500" />
         </div>
       </div>
     </div>
