@@ -30,7 +30,7 @@ const Form = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [imagePreviewUrl, setImagePreviewUrl] = useState("");
   const [showModal, setShowModal] = useState(false);
-  const [qrCode, setQRCode] = useState("");
+  const [qrCode, setQRCode] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -136,11 +136,9 @@ const Form = () => {
         setFormData(updatedFormData);
 
         // POST to API logic
-        console.log("Submitting form data:", updatedFormData);
-
         // Make POST request to server
         const response = await axios.post(
-          "http://localhost:4000/formData",
+          "https://biz-qr.onrender.com/formData",
           updatedFormData
         );
 
@@ -149,8 +147,6 @@ const Form = () => {
 
         // Open the modal
         setShowModal(true);
-
-        console.log("Form data submitted successfully:", response.data);
       } catch (error) {
         console.error("Error submitting form data:", error);
       }
@@ -247,19 +243,32 @@ const Form = () => {
           </div>
 
           <div className="col-span-2">
-            <button
-              type="submit"
-              className="w-full p-3 bg-yellow-400 text-white rounded shadow hover:bg-yellow-300"
-            >
-              Submit
-            </button>
+            {qrCode ? (
+              <button
+                onClick={() => setShowModal(true)}
+                className="w-full p-3 bg-blue-400 text-white rounded shadow hover:bg-blue-300"
+              >
+                View QR Code
+              </button>
+            ) : (
+              <button
+                type="submit"
+                className="w-full p-3 bg-yellow-400 text-white rounded shadow hover:bg-yellow-300"
+              >
+                Generate QR Code
+              </button>
+            )}
           </div>
 
-          <QRCodeModal
-            show={showModal}
-            onClose={() => setShowModal(false)}
-            qrCode={qrCode}
-          />
+          <div>
+            {qrCode && (
+              <QRCodeModal
+                show={showModal}
+                onClose={() => setShowModal(false)}
+                qrCode={qrCode}
+              />
+            )}
+          </div>
         </form>
       </div>
     </div>
