@@ -76,7 +76,7 @@ const ServicesInput = ({ services, setServices, required }) => {
         onKeyDown={handleKeyDown}
         placeholder="Type service and press Enter"
         onBlur={handleBlur}
-        className="w-full border-2 p-2 rounded outline-none focus:border-blue-500"
+        className="w-full border-2 p-2 rounded outline-none focus:border-blue-500 text-black"
       />
       {isTouched && errorMessage && (
         <p className="text-xs text-red-500 mt-1">

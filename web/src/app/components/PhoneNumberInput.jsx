@@ -71,7 +71,7 @@ const PhoneNumberInput = ({ phoneNumbers, setPhoneNumbers }) => {
             name={`phoneNumber-${index}`}
             placeholder="123-456-789"
             value={phoneNumber}
-            className="flex-grow border-2 p-2 rounded outline-none focus:border-blue-500"
+            className="flex-grow border-2 p-2 rounded outline-none focus:border-blue-500 text-black"
             readOnly
           />
           <button
@@ -92,7 +92,7 @@ const PhoneNumberInput = ({ phoneNumbers, setPhoneNumbers }) => {
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
           onBlur={handleBlur}
-          className="flex-grow border-2 p-2 rounded outline-none focus:border-blue-500"
+          className="flex-grow border-2 p-2 rounded outline-none focus:border-blue-500 text-black"
           required={isRequired}
         />
         <button

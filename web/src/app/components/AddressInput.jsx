@@ -30,7 +30,7 @@ const AddressInput = ({ onAddressChange }) => {
           onChange={handleChange}
           onBlur={handleBlur}
           required
-          className="flex-grow border-2 p-2 rounded outline-none focus:border-blue-500"
+          className="flex-grow border-2 p-2 rounded outline-none focus:border-blue-500 text-black"
         />
       </div>
       <div className="flex items-center justify-between mt-1">
@@ -45,7 +45,7 @@ const AddressInput = ({ onAddressChange }) => {
           onChange={handleChange}
           onBlur={handleBlur}
           required
-          className="flex-grow border-2 p-2 rounded outline-none focus:border-blue-500"
+          className="flex-grow border-2 p-2 rounded outline-none focus:border-blue-500 text-black"
         />
       </div>
       <div className="flex items-center justify-between mt-1">
@@ -60,7 +60,7 @@ const AddressInput = ({ onAddressChange }) => {
           onChange={handleChange}
           onBlur={handleBlur}
           required
-          className="flex-grow border-2 p-2 rounded outline-none focus:border-blue-500"
+          className="flex-grow border-2 p-2 rounded outline-none focus:border-blue-500 text-black"
         />
       </div>
     </>

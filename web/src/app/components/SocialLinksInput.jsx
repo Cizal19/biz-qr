@@ -21,14 +21,14 @@ const SocialLinksInput = ({ onSocialLinksChange }) => {
   return (
     <div className="space-y-4">
       <div>
-        <label className="block  text-gray-500">Website</label>
+        <label className="block text-gray-500">Website</label>
         <input
           type="url"
           name="website"
           value={localSocialLinks.website}
           onChange={handleChange}
           onBlur={handleBlur}
-          className="w-full border-2 p-2 rounded outline-none focus:border-blue-500"
+          className="w-full border-2 p-2 rounded outline-none focus:border-blue-500 text-black"
         />
       </div>
       <div>
@@ -39,7 +39,7 @@ const SocialLinksInput = ({ onSocialLinksChange }) => {
           value={localSocialLinks.instagram}
           onChange={handleChange}
           onBlur={handleBlur}
-          className="w-full border-2 p-2 rounded outline-none focus:border-blue-500"
+          className="w-full border-2 p-2 rounded outline-none focus:border-blue-500 text-black"
         />
       </div>
       <div>
@@ -50,7 +50,7 @@ const SocialLinksInput = ({ onSocialLinksChange }) => {
           value={localSocialLinks.linkedin}
           onChange={handleChange}
           onBlur={handleBlur}
-          className="w-full border-2 p-2 rounded outline-none focus:border-blue-500"
+          className="w-full border-2 p-2 rounded outline-none focus:border-blue-500 text-black"
         />
       </div>
       <div>
@@ -61,7 +61,7 @@ const SocialLinksInput = ({ onSocialLinksChange }) => {
           value={localSocialLinks.x}
           onChange={handleChange}
           onBlur={handleBlur}
-          className="w-full border-2 p-2 rounded outline-none focus:border-blue-500"
+          className="w-full border-2 p-2 rounded outline-none focus:border-blue-500 text-black"
         />
       </div>
       <div>
@@ -72,7 +72,7 @@ const SocialLinksInput = ({ onSocialLinksChange }) => {
           value={localSocialLinks.facebook}
           onChange={handleChange}
           onBlur={handleBlur}
-          className="w-full border-2 p-2 rounded outline-none focus:border-blue-500"
+          className="w-full border-2 p-2 rounded outline-none focus:border-blue-500 text-black"
         />
       </div>
     </div>

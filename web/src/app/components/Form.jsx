@@ -175,7 +175,7 @@ const Form = () => {
                   placeholder="Business Name"
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full border-2 p-2 rounded outline-none focus:border-blue-500"
+                  className="w-full border-2 p-2 rounded outline-none focus:border-blue-500 text-black"
                   required
                 />
               </div>
